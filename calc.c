@@ -40,6 +40,25 @@ int init_module()
     	printk(KERN_INFO "Error creating proc entry");
     	return -ENOMEM;
     }
+	arg2->write_proc = write_arg2;
+
+	// operation
+	operation = create_proc_entry(OPERATION, 0666, calc_dir);
+	if(!operation) {
+    	printk(KERN_INFO "Error creating proc entry");
+    	return -ENOMEM;
+    }
+	operation->write_proc = write_operation;
+
+	// result
+	result = create_proc_entry(RESULT, 0666, calc_dir);
+	if(!result) {
+    	printk(KERN_INFO "Error creating proc entry");
+    	return -ENOMEM;
+    }
+	result->read_proc = read_result;
+
+
 	return 0;
 }
 
